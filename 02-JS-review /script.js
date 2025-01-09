@@ -241,7 +241,7 @@ const essencialData = books.map((book) => ({
 }));
 essencialData;
 
-// The Array filter Method
+// The Array filter Method check the conditions
 const longBooksWithMovie = books
     .filter((book) => book.pages > 500)
     .filter((book) => book.hasMovieAdaptation);
@@ -251,3 +251,7 @@ const adventureBooks = books
     .filter((books) => books.genres.includes("adventure"))
     .map((book) => book.title);
 adventureBooks;
+
+// The Array reduce Method
+const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
+pagesAllBooks;
