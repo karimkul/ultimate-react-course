@@ -145,7 +145,7 @@ function getBook(id) {
 
 // Destructuring
 
-const book = getBook(2);
+const book = getBook(3);
 
 // Destructuring Objects
 // const title = book.title;
@@ -208,9 +208,18 @@ console.log(book.translations.spanish);
 const spanishTranslated = book.translations.spanish || "NOT TRANSLATED";
 spanishTranslated;
 
-console.log(book.reviews.librarything.reviewsCount);
-const countWrong = book.reviews.librarything.reviewsCount || "NO DATA";
-countWrong;
+// console.log(book.reviews.librarything.reviewsCount);
+// const countWrong = book.reviews.librarything.reviewsCount || "NO DATA";
+// countWrong;
 
-const count = book.reviews.librarything.reviewsCount ?? "NO DATA";
-count;
+// const count = book.reviews.librarything.reviewsCount ?? "NO DATA";
+// count;
+
+function getTotalReviewCount(book) {
+    const goodread = book.reviews?.goodreads?.reviewsCount;
+    const librarything = book.reviews?.librarything?.reviewsCount ?? 0;
+    librarything;
+    return goodread + librarything;
+}
+
+console.log(getTotalReviewCount(book));
