@@ -255,3 +255,12 @@ adventureBooks;
 // The Array reduce Method
 const pagesAllBooks = books.reduce((sum, book) => sum + book.pages, 0);
 pagesAllBooks;
+
+// The Array sort Method
+const arr = [3, 7, 4, 3, 6];
+const sortedZ = arr.slice().sort((a, b) => b - a);
+sortedZ;
+arr;
+
+const sortedByPages = books.slice().sort((a, b) => b.pages - a.pages);
+sortedByPages;
