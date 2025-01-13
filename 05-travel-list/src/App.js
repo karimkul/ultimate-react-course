@@ -10,6 +10,13 @@ export default function App() {
     function handleAddItems(item) {
         setItems((items) => [...items, item]);
     }
+    function handleToggelItem(id) {
+        setItems((items) =>
+            items.map((item) =>
+                item.id === id ? { ...item, packed: !item.packed } : item
+            )
+        );
+    }
 
     return (
         <div className="app">
@@ -19,6 +26,7 @@ export default function App() {
                 items={items}
                 setItems={setItems}
                 onDeleteItem={handleDeleteItem}
+                onToggelItem={handleToggelItem}
             />
             <Stats />
         </div>
@@ -75,7 +83,7 @@ function Form({ onAddItems }) {
     );
 }
 
-function PackingList({ items, onDeleteItem }) {
+function PackingList({ items, onDeleteItem, onToggelItem }) {
     return (
         <div className="list">
             <ul>
@@ -84,6 +92,7 @@ function PackingList({ items, onDeleteItem }) {
                         item={item}
                         key={item.id}
                         onDeleteItem={onDeleteItem}
+                        onToggelItem={onToggelItem}
                     />
                 ))}
             </ul>
@@ -91,9 +100,14 @@ function PackingList({ items, onDeleteItem }) {
     );
 }
 
-function Item({ item, onDeleteItem }) {
+function Item({ item, onDeleteItem, onToggelItem }) {
     return (
         <li>
+            <input
+                type="checkbox"
+                value={item.packed}
+                onChange={() => onToggelItem(item.id)}
+            />
             <span style={item.packed ? { textDecoration: "line-through" } : {}}>
                 {item.quantity} {item.description}
             </span>
