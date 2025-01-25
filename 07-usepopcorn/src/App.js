@@ -45,9 +45,21 @@ const tempWatchedData = [
 const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+const KEY = "8ff8de19";
 export default function App() {
-    const [movies, setMovies] = useState(tempMovieData);
-    const [watched, setWatched] = useState(tempWatchedData);
+    const [movies, setMovies] = useState([]);
+    const [watched, setWatched] = useState([]);
+
+    fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data.Search);
+        })
+        .catch((err) => console.error("Fetch Error:", err));
+
+    // fetch(`http://www.omdbapi.com/?i=tt3896198&apikey=${KEY}&s=interestellar`)
+    //     .then((res) => res.json())
+    //     .then((data) => console.log(data));
 
     return (
         <>
