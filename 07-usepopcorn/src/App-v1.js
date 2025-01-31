@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import StarRating from "./StarRating";
-import { func } from "prop-types";
 
 const average = (arr) =>
     arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -14,6 +13,20 @@ export default function App() {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
     const [selectedId, setSelectedId] = useState(null);
+
+    // useEffect(function () {
+    //     console.log("After initial render");
+    // }, []);
+    // useEffect(function () {
+    //     console.log("After every render");
+    // });
+    // useEffect(
+    //     function () {
+    //         console.log("D");
+    //     },
+    //     [query]
+    // );
+    // console.log("During render");
 
     function handleSelectMovie(id) {
         setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -250,18 +263,6 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
         Director: director,
         Genre: genre
     } = movie;
-
-    // if (imdbRating > 8) return <p>Greates ever!</p>;
-    // const [isTop, setIsTop] = useState(imdbRating > 8);
-    // console.log(isTop);
-    // useEffect(
-    //     function () {
-    //         setIsTop(imdbRating > 8);
-    //     },
-    //     [imdbRating]
-    // );
-    // const isTop = imdbRating > 8;
-    // console.log(isTop);
 
     function handleAdd() {
         const newWatchedMovie = {
