@@ -1,4 +1,5 @@
 import { useEffect, useReducer } from "react";
+
 import Headers from "./Header";
 import Main from "./Main";
 import Loader from "./Loader";
@@ -8,7 +9,10 @@ import Question from "./Question";
 import NextButton from "./NextButton";
 import Progress from "./Progress";
 import FinishScreen from "./FinishScreen";
+import Timer from "./Timer";
+import Footer from "./Footer";
 
+const SECS_PER_QUESTIONS = 30;
 const initialState = {
     questions: [],
     // "loading","error","ready","active","finish"
@@ -16,7 +20,8 @@ const initialState = {
     index: 0,
     answer: null,
     points: 0,
-    highscore: 0
+    highscore: 0,
+    secondsRemaining: null
 };
 
 function reducer(state, action) {
@@ -35,7 +40,8 @@ function reducer(state, action) {
         case "start":
             return {
                 ...state,
-                status: "active"
+                status: "active",
+                secondsRemaining: state.questions.length * SECS_PER_QUESTIONS
             };
         case "newAnswer":
             const question = state.questions.at(state.index);
@@ -78,14 +84,31 @@ function reducer(state, action) {
         //     status: "ready"
         // }
 
+        case "tick":
+            return {
+                ...state,
+                secondsRemaining: state.secondsRemaining - 1,
+                status: state.secondsRemaining === 0 ? "finished" : state.status
+            };
+
         default:
             throw new Error("Action unknown");
     }
 }
 
 export default function App() {
-    const [{ questions, status, index, answer, points, highscore }, dispatch] =
-        useReducer(reducer, initialState);
+    const [
+        {
+            questions,
+            status,
+            index,
+            answer,
+            points,
+            highscore,
+            secondsRemaining
+        },
+        dispatch
+    ] = useReducer(reducer, initialState);
 
     const numQuestions = questions.length;
     const maxPossiblePoints = questions.reduce(
@@ -116,7 +139,7 @@ export default function App() {
                         <Progress
                             index={index}
                             numQuestions={numQuestions}
-                            poits={points}
+                            points={points}
                             maxPossiblePoints={maxPossiblePoints}
                             answer={answer}
                         />
@@ -125,12 +148,18 @@ export default function App() {
                             dispatch={dispatch}
                             answer={answer}
                         />
-                        <NextButton
-                            dispatch={dispatch}
-                            answer={answer}
-                            index={index}
-                            numQuestions={numQuestions}
-                        />
+                        <Footer>
+                            <Timer
+                                dispatch={dispatch}
+                                secondsRemaining={secondsRemaining}
+                            />
+                            <NextButton
+                                dispatch={dispatch}
+                                answer={answer}
+                                index={index}
+                                numQuestions={numQuestions}
+                            />
+                        </Footer>
                     </>
                 )}
                 {status === "finished" && (
