@@ -12,9 +12,11 @@
     },
     "dependencies": {
         "json-server": "^1.0.0-beta.3",
-        "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "react-router-dom": "^6.29.0"
+        "leaflet": "^1.9.4",
+        "react": "^19.0.0",
+        "react-dom": "^19.0.0",
+        "react-leaflet": "^5.0.0",
+        "react-router-dom": "^7.1.5"
     },
     "devDependencies": {
         "@babel/plugin-proposal-private-property-in-object": "^7.21.11",

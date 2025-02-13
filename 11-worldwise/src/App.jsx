@@ -11,6 +11,8 @@ import CountryList from "./components/CountryList";
 import City from "./components/City";
 import Form from "./components/Form";
 import { CitiesProvider } from "./contexts/CitiesContext";
+import "leaflet/dist/leaflet.css";
+import Map from "./components/Map";
 
 function App() {
     return (
@@ -30,6 +32,7 @@ function App() {
                         <Route path="cities/:id" element={<City />} />
                         <Route path="countries" element={<CountryList />} />
                         <Route path="form" element={<Form />} />
+                        <Route path="map" element={<Map />} />
                     </Route>
 
                     <Route path="*" element={<PageNotFound />} />
