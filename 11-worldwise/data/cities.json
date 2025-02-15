@@ -1,15 +1,27 @@
 {
   "cities": [
     {
-      "id": "94a2",
-      "cityName": "Villarta de los Montes",
+      "id": "ca0e",
+      "cityName": "Alcala de Henares",
       "country": "Spain",
       "emoji": "🇪🇸",
-      "date": "2025-02-15T18:10:43.548Z",
+      "date": "2025-02-15T19:08:05.071Z",
       "notes": "",
       "position": {
-        "lat": "39.232253141714914",
-        "lng": "-4.768066406250001"
+        "lat": "40.49709237269567",
+        "lng": "-3.4277343750000004"
+      }
+    },
+    {
+      "id": "6206",
+      "cityName": "Totanes",
+      "country": "Spain",
+      "emoji": "🇪🇸",
+      "date": "2025-02-15T19:14:09.515Z",
+      "notes": "",
+      "position": {
+        "lat": "39.690280594818034",
+        "lng": "-4.218750000000001"
       }
     }
   ]
