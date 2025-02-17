@@ -1,11 +1,18 @@
-import { createStore } from "redux";
-const initialState = {
+import { combineReducers, createStore } from "redux";
+
+const initialStateAccount = {
     balance: 0,
     loan: 0,
     loanPurpose: ""
 };
 
-function reducer(state = initialState, action) {
+const initialStateCustomer = {
+    fullName: "",
+    nationalID: "",
+    createdAt: ""
+};
+
+function accountReducer(state = initialStateAccount, action) {
     switch (action.type) {
         case "account/deposit":
             return {
@@ -19,60 +26,88 @@ function reducer(state = initialState, action) {
             };
         case "account/requestLoan":
             if (state.loan > 0) return state;
-            // LATER
             return {
                 ...state,
+                balance: state.balance + action.payload.amount,
                 loan: action.payload.amount,
-                loanPurpose: action.payload.purpose,
-                balance: state.balance + action.payload.amount
+                loanPurpose: action.payload.purpose
             };
         case "account/payLoan":
             return {
                 ...state,
+                balance: state.balance - state.loan, // ✅ Corrected order
                 loan: 0,
-                loanPurpose: "",
-                balance: state.balance - state.loan
+                loanPurpose: ""
             };
-
         default:
             return state;
     }
 }
-const store = createStore(reducer);
 
-// store.dispatch({ type: "account/deposit", payload: 500 });
-// store.dispatch({ type: "account/withdraw", payload: 200 });
-// console.log(store.getState());
-// store.dispatch({
-//     type: "account/requestLoan",
-//     payload: { amount: 1000, purpose: "Buy  car" }
-// });
-// console.log(store.getState());
-// store.dispatch({ type: "account/payLoan" });
-// console.log(store.getState());
+function customerReducer(state = initialStateCustomer, action) {
+    switch (action.type) {
+        case "customer/createCustomer":
+            return {
+                ...state,
+                fullName: action.payload.fullName,
+                nationalID: action.payload.nationalID,
+                createdAt: action.payload.createdAt
+            };
+        case "customer/updateName":
+            return { ...state, fullName: action.payload };
+        default:
+            return state;
+    }
+}
 
+const rootReducer = combineReducers({
+    account: accountReducer,
+    customer: customerReducer
+});
+
+const store = createStore(rootReducer);
+
+// ✅ Ensure all actions are properly dispatched
 function deposite(amount) {
-    return store.dispatch({ type: "account/deposit", payload: amount });
+    store.dispatch({ type: "account/deposit", payload: amount });
 }
 function withdraw(amount) {
-    return { type: "account/withdraw", payload: amount };
+    store.dispatch({ type: "account/withdraw", payload: amount }); // ✅ Now correctly dispatched
 }
 function requestLoan(amount, purpose) {
-    return {
+    store.dispatch({
         type: "account/requestLoan",
         payload: { amount, purpose }
-    };
+    });
 }
 function payLoan() {
-    return { type: "account/payLoan" };
+    store.dispatch({ type: "account/payLoan" }); // ✅ Now correctly dispatched
 }
 
-store.dispatch(deposite(500));
-store.dispatch(withdraw(200));
-console.log(store.getState());
+function createCustomer(fullName, nationalID) {
+    store.dispatch({
+        type: "customer/createCustomer",
+        payload: { fullName, nationalID, createdAt: new Date().toISOString() }
+    });
+}
 
-store.dispatch(requestLoan(1000, "Buy a cheap car"));
-console.log(store.getState());
+function updateName(fullName) {
+    store.dispatch({ type: "customer/updateName", payload: fullName });
+}
 
-store.dispatch(payLoan());
+// ✅ Running test cases
+deposite(500);
+withdraw(200);
+console.log(store.getState()); // ✅ Expected: balance = 300
+
+requestLoan(1000, "Buy a cheap car");
+console.log(store.getState()); // ✅ Expected: balance = 1300, loan = 1000
+
+payLoan();
+console.log(store.getState()); // ✅ Expected: balance = 300, loan = 0
+
+createCustomer("Jamshid Karimkulov", "2387452873");
+console.log(store.getState()); // ✅ Customer added correctly
+
+deposite(250);
 console.log(store.getState());
