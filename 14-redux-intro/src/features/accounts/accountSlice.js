@@ -46,8 +46,6 @@ const accountSlice = createSlice({
     }
 });
 
-console.log(accountSlice);
-
 export const { payLoan, requestLoan, withdraw } = accountSlice.actions;
 
 console.log(requestLoan(1000, "buy a car"));
