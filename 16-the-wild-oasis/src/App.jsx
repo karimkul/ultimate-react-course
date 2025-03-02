@@ -16,7 +16,8 @@ import AppLayout from "./ui/Applayout";
 const queryClint = new QueryClient({
     defaultOptions: {
         queries: {
-            staleTime: 60 * 1000
+            // staleTime: 60 * 1000
+            staleTime: 0
         }
     }
 });
