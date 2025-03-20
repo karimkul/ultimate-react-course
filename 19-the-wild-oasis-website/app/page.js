@@ -1,3 +1,12 @@
+import Link from "next/link";
+import Navigation from "./components/Navigation";
+
 export default function Page() {
-    return <h1>Hello next.js</h1>;
+    return (
+        <div>
+            <Navigation />
+            <h1>The Wild Oasis. Welcome to paradise.</h1>
+            <Link href="/cabins">Explore luxory cabins</Link>
+        </div>
+    );
 }
