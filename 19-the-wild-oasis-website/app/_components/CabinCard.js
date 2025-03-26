@@ -25,7 +25,7 @@ function CabinCard({ cabin }) {
                         <UsersIcon className="h-5 w-5 text-primary-600" />
                         <p className="text-lg text-primary-200">
                             For up to{" "}
-                            <span className="font-bold">{maxCapacity}</span>{" "}
+                            <span className="font-bold">{maxCapacity}</span>
                             guests
                         </p>
                     </div>

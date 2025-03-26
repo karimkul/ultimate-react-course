@@ -4,7 +4,7 @@ import CabinCard from "./CabinCard";
 import { getCabins } from "../_lib/data-service";
 
 export default async function CabinList() {
-    // noStore();
+    noStore();
 
     const cabins = await getCabins();
 
