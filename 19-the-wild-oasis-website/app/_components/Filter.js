@@ -8,7 +8,6 @@ function Filter() {
     const router = useRouter();
     const pathname = usePathname();
     const activeFilter = searchParams.get("capacity") ?? "all";
-    // const [activeFilter, setActiveFilter] = useState("all");
 
     function handleFilter(filter) {
         const params = new URLSearchParams(searchParams);
@@ -17,6 +16,7 @@ function Filter() {
             scroll: false
         });
     }
+
     return (
         <div className="border border-primary-800 flex ">
             <Button
